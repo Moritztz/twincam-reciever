@@ -1,9 +1,9 @@
 'use strict';
 
-var localStream = null;
-var peer = null;
+let localStream = null;
+let peer = null;
 let existingCall = null;
-var isReceive = true;    //受信専用かどうか
+let isReceive = true;    //受信専用かどうか
 const VIDEO_CODEC = 'VP9';
 
 //peeridを取得
