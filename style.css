@@ -67,3 +67,7 @@ Copyright (c) Nicolas Gallagher and Jonathan Neal
 #my-id {
     font-weight: bold;
 }
+
+body {
+    background-color: white;
+}
