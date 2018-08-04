@@ -1,39 +1,39 @@
-'use strict';
+ï»¿'use strict';
 
 let localStream = null;
 let peer = null;
 let existingCall = null;
-let isReceive = true;    //óMê—p‚©‚Ç‚¤‚©
+let isReceive = true;    //å—ä¿¡å°‚ç”¨ã‹ã©ã†ã‹
 const VIDEO_CODEC = 'VP9';
 
-//peerid‚ğæ“¾
+//peeridã‚’å–å¾—
 function GetPeerId(yourid) {
 
-    //peerƒIƒuƒWƒFƒNƒg‚Ìì¬
+    //peerã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½œæˆ
     peer = new Peer(yourid,{
         key: '9373b614-604f-4fd5-b96a-919b20a7c24e',    //APIkey
         debug: 3
     });
 
-    //ƒCƒxƒ“ƒg idæ“¾Œã‚¶‚á‚È‚¢‚Æ“®ì‚µ‚È‚¢
+    //ã‚¤ãƒ™ãƒ³ãƒˆ idå–å¾—å¾Œã˜ã‚ƒãªã„ã¨å‹•ä½œã—ãªã„
 
-    //openƒCƒxƒ“ƒg
+    //openã‚¤ãƒ™ãƒ³ãƒˆ
     peer.on('open', function Open () {
     });
 
-    //errorƒCƒxƒ“ƒg
+    //errorã‚¤ãƒ™ãƒ³ãƒˆ
     peer.on('error', function Error (err) {
     });
 
-    //closeƒCƒxƒ“ƒg
+    //closeã‚¤ãƒ™ãƒ³ãƒˆ
     peer.on('close', function Close () {
     });
 
-    //disconnectedƒCƒxƒ“ƒg
+    //disconnectedã‚¤ãƒ™ãƒ³ãƒˆ
     peer.on('disconnected', function Disconnected () {
     });
 
-    //’…Mˆ—
+    //ç€ä¿¡å‡¦ç†
     peer.on('call', function (call) {
         call.answer();
         setupCallEventHandlers(call);
@@ -42,22 +42,22 @@ function GetPeerId(yourid) {
     return null;
 }
 
-//”­Mˆ—
+//ç™ºä¿¡å‡¦ç†
 function MakeCall(calltoid) {
-    const call = peer.call(calltoid, localStream, {     //‹ó‚Ì“®‰æ‚ğ‘—‚é
-        videoCodec: VIDEO_CODEC,                        //‚±‚ê‚ğ“ü‚ê‚È‚¢‚Æ“®‰æ‚ªÄ¶‚Å‚«‚È‚¢
-        videoReceiveEnabled: isReceive,                 //óMê—p‚Æ‚µ‚Ä‚±‚±‚Åİ’è
+    const call = peer.call(calltoid, localStream, {     //ç©ºã®å‹•ç”»ã‚’é€ã‚‹
+        videoCodec: VIDEO_CODEC,                        //ã“ã‚Œã‚’å…¥ã‚Œãªã„ã¨å‹•ç”»ãŒå†ç”Ÿã§ããªã„
+        videoReceiveEnabled: isReceive,                 //å—ä¿¡å°‚ç”¨ã¨ã—ã¦ã“ã“ã§è¨­å®š
         audioReceiveEnabled: isReceive,
     });
     setupCallEventHandlers(call);
 }
 
-//Ø’fˆ—
+//åˆ‡æ–­å‡¦ç†
 function EndCall() {
     existingCall.close();
 }
 
-//CallƒIƒuƒWƒFƒNƒg‚É•K—v‚ÈƒCƒxƒ“ƒg
+//Callã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«å¿…è¦ãªã‚¤ãƒ™ãƒ³ãƒˆ
 function setupCallEventHandlers(call) {
     if (existingCall) {
         existingCall.close();
@@ -69,17 +69,17 @@ function setupCallEventHandlers(call) {
         addVideo(call, stream);
     });
 
-    call.on('close', function () {    //??‚È‚º‚©Às‚³‚ê‚½‘¤‚Å”­‰Î‚¹‚¸??
+    call.on('close', function () {    //??ãªãœã‹å®Ÿè¡Œã•ã‚ŒãŸå´ã§ç™ºç«ã›ãš??
         removeVideo(call.remoteId);
     });
 }
 
-//video—v‘f‚ÌÄ¶
+//videoè¦ç´ ã®å†ç”Ÿ
 function addVideo(call, stream) {
     $('#their-video').get(0).srcObject = stream;
 }
 
-//video—v‘f‚Ìíœ
+//videoè¦ç´ ã®å‰Šé™¤
 function removeVideo(peerId) {
     $('#their-video').get(0).srcObject = undefined;
 }
