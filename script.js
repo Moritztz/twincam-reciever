@@ -6,7 +6,7 @@ let existingCall = null;
 let isReceive = true;    //受信専用かどうか
 const VIDEO_CODEC = 'VP9';
 
-//peeridを取得
+//peeridを取得 
 function GetPeerId(yourid) {
 
     //peerオブジェクトの作成
